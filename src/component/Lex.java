@@ -23,4 +23,8 @@ public class Lex {
       return null;
     }
   }
+
+  public void finalize() {
+    scanner.close();
+  }
 }
