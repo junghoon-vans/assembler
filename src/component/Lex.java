@@ -24,6 +24,15 @@ public class Lex {
     }
   }
 
+  public String[] getTokens() {
+    try {
+      String line = scanner.nextLine();
+      return line.split(" ");
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
   public void finalize() {
     scanner.close();
   }
