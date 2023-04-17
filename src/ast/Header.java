@@ -1,0 +1,46 @@
+package ast;
+
+import component.Lex;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Header implements Node {
+
+  private Lex lex;
+  private List<Declaration> declarations;
+
+  public Header(Lex lex) {
+    this.lex = lex;
+    declarations = new ArrayList<>();
+  }
+
+  @Override
+  public String parse() {
+    String token = lex.getToken();
+
+    while (!token.equals(".code")) {
+      Declaration declaration = new Declaration(token, Integer.parseInt(lex.getToken()));
+      this.declarations.add(declaration);
+      token = lex.getToken();
+    }
+
+    return token;
+  }
+
+  @Override
+  public void print() {
+    for (Declaration declaration : declarations) {
+      System.out.println(declaration.variableName + " " + declaration.size);
+    }
+  }
+
+  static class Declaration {
+    private String variableName;
+    private int size;
+
+    Declaration(String variableName, int size) {
+      this.variableName = variableName;
+      this.size = size;
+    }
+  }
+}
