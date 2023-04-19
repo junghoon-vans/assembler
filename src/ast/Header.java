@@ -30,7 +30,7 @@ public class Header implements Node {
   @Override
   public void print() {
     for (SymbolEntity symbolEntity : symbolEntities) {
-      System.out.println(symbolEntity.getVariableName() + " " + symbolEntity.getSize());
+      System.out.println(symbolEntity.getVariableName() + " " + symbolEntity.getValue());
     }
   }
 }

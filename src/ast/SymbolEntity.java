@@ -2,18 +2,18 @@ package ast;
 
 public class SymbolEntity {
   private String variableName;
-  private int size;
+  private int value;
 
-  SymbolEntity(String variableName, int size) {
+  SymbolEntity(String variableName, int value) {
     this.variableName = variableName;
-    this.size = size;
+    this.value = value;
   }
 
   public String getVariableName() {
     return this.variableName;
   }
 
-  public int getSize() {
-    return this.size;
+  public int getValue() {
+    return this.value;
   }
 }
