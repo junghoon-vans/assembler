@@ -1,10 +1,10 @@
 package ast;
 
-public class Declaration {
+public class SymbolEntity {
   private String variableName;
   private int size;
 
-  Declaration(String variableName, int size) {
+  SymbolEntity(String variableName, int size) {
     this.variableName = variableName;
     this.size = size;
   }

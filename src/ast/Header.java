@@ -7,11 +7,11 @@ import java.util.List;
 public class Header implements Node {
 
   private Lex lex;
-  private List<Declaration> declarations;
+  private List<SymbolEntity> symbolEntities;
 
   public Header(Lex lex) {
     this.lex = lex;
-    declarations = new ArrayList<>();
+    symbolEntities = new ArrayList<>();
   }
 
   @Override
@@ -19,8 +19,8 @@ public class Header implements Node {
     String token = lex.getToken();
 
     while (!token.equals(".code")) {
-      Declaration declaration = new Declaration(token, Integer.parseInt(lex.getToken()));
-      this.declarations.add(declaration);
+      SymbolEntity symbolEntity = new SymbolEntity(token, Integer.parseInt(lex.getToken()));
+      this.symbolEntities.add(symbolEntity);
       token = lex.getToken();
     }
 
@@ -29,8 +29,8 @@ public class Header implements Node {
 
   @Override
   public void print() {
-    for (Declaration declaration : declarations) {
-      System.out.println(declaration.getVariableName() + " " + declaration.getSize());
+    for (SymbolEntity symbolEntity : symbolEntities) {
+      System.out.println(symbolEntity.getVariableName() + " " + symbolEntity.getSize());
     }
   }
 }
