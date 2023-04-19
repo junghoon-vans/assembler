@@ -30,17 +30,7 @@ public class Header implements Node {
   @Override
   public void print() {
     for (Declaration declaration : declarations) {
-      System.out.println(declaration.variableName + " " + declaration.size);
-    }
-  }
-
-  static class Declaration {
-    private String variableName;
-    private int size;
-
-    Declaration(String variableName, int size) {
-      this.variableName = variableName;
-      this.size = size;
+      System.out.println(declaration.getVariableName() + " " + declaration.getSize());
     }
   }
 }
