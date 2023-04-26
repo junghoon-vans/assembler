@@ -4,7 +4,6 @@ sum 4
 i 8
 
 .code
-
 mov MAR @count
 mov MBR 10
 sto
@@ -14,6 +13,7 @@ sto
 mov MAR @i
 mov MBR 0
 sto
+
 start:
 mov MAR @i
 lda
