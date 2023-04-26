@@ -28,7 +28,7 @@ public class CodeSegment implements Node {
       if (statement.getOperator().contains(":")) {
         SymbolEntity symbolEntity = new SymbolEntity(
             statement.getOperator().replace(":", ""),
-            this.statements.size() - 1
+            this.statements.size() + 1
         );
         this.symbolTable.add(symbolEntity);
       } else {
