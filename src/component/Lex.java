@@ -27,6 +27,9 @@ public class Lex {
   public String[] getTokens() {
     try {
       String line = scanner.nextLine();
+      while (line.isEmpty() || line.startsWith("//")) {
+        line = scanner.nextLine();
+      }
       return line.split(" ");
     } catch (Exception e) {
       return null;
