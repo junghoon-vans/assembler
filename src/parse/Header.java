@@ -1,8 +1,8 @@
-package ast;
+package parse;
 
-import component.Lex;
-import symbol.SymbolEntity;
-import symbol.SymbolTable;
+import util.Lex;
+import parse.symbol.SymbolEntity;
+import parse.symbol.SymbolTable;
 
 public class Header {
 

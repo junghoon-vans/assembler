@@ -1,6 +1,6 @@
-import symbol.SymbolTable;
-import component.Lex;
-import component.Parser;
+import parse.symbol.SymbolTable;
+import util.Lex;
+import util.Parser;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
-package component;
+package util;
 
-import ast.Program;
-import symbol.SymbolTable;
+import parse.Program;
+import parse.symbol.SymbolTable;
 
 public class Parser {
   private Lex lex;

@@ -1,4 +1,4 @@
-package ast;
+package parse.tree;
 
 public interface Node {
   String parse();

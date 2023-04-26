@@ -1,6 +1,6 @@
-package ast;
+package parse.tree;
 
-import component.Lex;
+import util.Lex;
 import java.util.Arrays;
 public class Statement implements Node {
 

@@ -1,4 +1,4 @@
-package symbol;
+package parse.symbol;
 
 import java.util.ArrayList;
 import java.util.List;

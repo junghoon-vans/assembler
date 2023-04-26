@@ -1,7 +1,9 @@
-package ast;
+package parse;
 
-import component.Lex;
-import symbol.SymbolTable;
+import util.Lex;
+import parse.tree.CodeSegment;
+import parse.tree.Node;
+import parse.symbol.SymbolTable;
 
 public class Program implements Node {
 

@@ -1,4 +1,4 @@
-package symbol;
+package parse.symbol;
 
 public class SymbolEntity {
   private String variableName;

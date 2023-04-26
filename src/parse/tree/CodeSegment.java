@@ -1,11 +1,10 @@
-package ast;
+package parse.tree;
 
-import component.Lex;
+import util.Lex;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Spring;
-import symbol.SymbolEntity;
-import symbol.SymbolTable;
+import parse.symbol.SymbolEntity;
+import parse.symbol.SymbolTable;
 
 public class CodeSegment implements Node {
 
