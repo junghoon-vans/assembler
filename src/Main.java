@@ -9,8 +9,9 @@ public class Main {
 
         Parser parser = new Parser(lex, symbolTable);
         parser.parse();
-        parser.print();
-
         lex.finalize();
+
+        symbolTable.print();
+        parser.print();
     }
 }

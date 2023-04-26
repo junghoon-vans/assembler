@@ -44,7 +44,6 @@ public class CodeSegment implements Node {
 
   @Override
   public void print() {
-    System.out.println("[Code Segment]");
     for (Statement statement : this.statements) {
       statement.print();
     }

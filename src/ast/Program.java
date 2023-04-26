@@ -32,7 +32,7 @@ public class Program implements Node {
 
   @Override
   public void print() {
-    this.header.print();
+    System.out.println("[Parse Tree]");
     this.codeSegment.print();
   }
 }

@@ -4,7 +4,7 @@ import component.Lex;
 import symbol.SymbolEntity;
 import symbol.SymbolTable;
 
-public class Header implements Node {
+public class Header {
 
   private Lex lex;
   private SymbolTable symbolTable;
@@ -14,7 +14,6 @@ public class Header implements Node {
     this.symbolTable = symbolTable;
   }
 
-  @Override
   public String parse() {
     String token = lex.getToken();
 
@@ -25,10 +24,5 @@ public class Header implements Node {
     }
 
     return token;
-  }
-
-  @Override
-  public void print() {
-    symbolTable.print();
   }
 }
