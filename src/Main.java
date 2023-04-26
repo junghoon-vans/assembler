@@ -11,6 +11,7 @@ public class Main {
         parser.parse();
         lex.finalize();
 
+        lex.printTokens();
         symbolTable.print();
         parser.print();
     }
