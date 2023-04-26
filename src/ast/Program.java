@@ -1,6 +1,7 @@
 package ast;
 
 import component.Lex;
+import symbol.SymbolTable;
 
 public class Program implements Node {
 
@@ -8,9 +9,9 @@ public class Program implements Node {
   private Header header;
   private CodeSegment codeSegment;
 
-  public Program(Lex lex) {
+  public Program(Lex lex, SymbolTable symbolTable) {
     this.lex = lex;
-    this.header = new Header(lex);
+    this.header = new Header(lex, symbolTable);
     this.codeSegment = new CodeSegment(lex);
   }
 

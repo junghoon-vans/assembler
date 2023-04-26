@@ -1,10 +1,10 @@
-package ast;
+package symbol;
 
 public class SymbolEntity {
   private String variableName;
   private int value;
 
-  SymbolEntity(String variableName, int value) {
+  public SymbolEntity(String variableName, int value) {
     this.variableName = variableName;
     this.value = value;
   }

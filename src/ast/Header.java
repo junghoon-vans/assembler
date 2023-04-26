@@ -1,17 +1,17 @@
 package ast;
 
 import component.Lex;
-import java.util.ArrayList;
-import java.util.List;
+import symbol.SymbolEntity;
+import symbol.SymbolTable;
 
 public class Header implements Node {
 
   private Lex lex;
-  private List<SymbolEntity> symbolEntities;
+  private SymbolTable symbolTable;
 
-  public Header(Lex lex) {
+  public Header(Lex lex, SymbolTable symbolTable) {
     this.lex = lex;
-    symbolEntities = new ArrayList<>();
+    this.symbolTable = symbolTable;
   }
 
   @Override
@@ -20,7 +20,7 @@ public class Header implements Node {
 
     while (!token.equals(".code")) {
       SymbolEntity symbolEntity = new SymbolEntity(token, Integer.parseInt(lex.getToken()));
-      this.symbolEntities.add(symbolEntity);
+      symbolTable.add(symbolEntity);
       token = lex.getToken();
     }
 
@@ -29,8 +29,6 @@ public class Header implements Node {
 
   @Override
   public void print() {
-    for (SymbolEntity symbolEntity : symbolEntities) {
-      System.out.println(symbolEntity.getVariableName() + " " + symbolEntity.getValue());
-    }
+    symbolTable.print();
   }
 }
