@@ -3,14 +3,19 @@ package ast;
 import component.Lex;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Spring;
+import symbol.SymbolEntity;
+import symbol.SymbolTable;
 
 public class CodeSegment implements Node {
 
   private Lex lex;
   private List<Statement> statements;
+  private SymbolTable symbolTable;
 
-  public CodeSegment(Lex lex) {
+  public CodeSegment(Lex lex, SymbolTable symbolTable) {
     this.lex = lex;
+    this.symbolTable = symbolTable;
     this.statements = new ArrayList<>();
   }
 
@@ -20,7 +25,16 @@ public class CodeSegment implements Node {
     String token = statement.parse();
 
     while (!token.equals(".end")) {
-      this.statements.add(statement);
+      if (statement.getOperator().contains(":")) {
+        SymbolEntity symbolEntity = new SymbolEntity(
+            statement.getOperator().replace(":", ""),
+            this.statements.size() - 1
+        );
+        this.symbolTable.add(symbolEntity);
+      } else {
+        this.statements.add(statement);
+      }
+
       statement = new Statement(lex);
       token = statement.parse();
     }

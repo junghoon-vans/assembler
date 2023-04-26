@@ -12,7 +12,7 @@ public class Program implements Node {
   public Program(Lex lex, SymbolTable symbolTable) {
     this.lex = lex;
     this.header = new Header(lex, symbolTable);
-    this.codeSegment = new CodeSegment(lex);
+    this.codeSegment = new CodeSegment(lex, symbolTable);
   }
 
   @Override

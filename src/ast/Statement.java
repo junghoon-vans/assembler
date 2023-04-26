@@ -27,4 +27,8 @@ public class Statement implements Node {
   public void print() {
     System.out.println(operator + " " + String.join(" ", operand));
   }
+
+  public String getOperator() {
+    return operator;
+  }
 }
