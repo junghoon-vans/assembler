@@ -7,7 +7,7 @@ import util.Parser;
 
 public class Main {
     public static void main(String[] args) {
-        Lex lex = new Lex("resources/program.exe");
+        Lex lex = new Lex("resources/program.asm");
         SymbolTable symbolTable = new SymbolTable();
         List<Statement> statements = new ArrayList<>();
 
