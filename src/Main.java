@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import parse.symbol.SymbolTable;
 import parse.tree.Statement;
+import util.CodeGenerator;
 import util.Lex;
 import util.Parser;
 
@@ -14,6 +15,9 @@ public class Main {
         Parser parser = new Parser(lex, symbolTable, statements);
         parser.parse();
         lex.finalize();
+
+        CodeGenerator codeGenerator = new CodeGenerator("resources/program.exe");
+        codeGenerator.generate(symbolTable, statements);
 
         lex.printTokens();
         symbolTable.print();

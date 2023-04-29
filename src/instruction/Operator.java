@@ -13,4 +13,9 @@ public enum Operator {
   SUB,
   GTJ,
   ;
+
+  public static String hexCode(String operator) {
+    return Integer.toHexString(Operator.valueOf(operator).ordinal());
+  }
 }
+

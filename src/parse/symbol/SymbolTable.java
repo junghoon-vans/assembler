@@ -14,6 +14,15 @@ public class SymbolTable {
     this.symbolEntities.add(symbolEntity);
   }
 
+  public SymbolEntity get(String variableName) {
+    for (SymbolEntity symbolEntity : symbolEntities) {
+      if (symbolEntity.getVariableName().equals(variableName)) {
+        return symbolEntity;
+      }
+    }
+    return null;
+  }
+
   public void print() {
     System.out.println("[Symbol Table]");
     for (SymbolEntity symbolEntity : symbolEntities) {

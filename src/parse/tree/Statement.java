@@ -31,4 +31,20 @@ public class Statement implements Node {
   public String getOperator() {
     return operator;
   }
+
+  public String getOperand1() {
+    if (operand.length >= 1) {
+      return operand[0];
+    } else {
+      return null;
+    }
+  }
+
+  public String getOperand2() {
+    if (operand.length >= 2) {
+      return operand[1];
+    } else {
+      return null;
+    }
+  }
 }
