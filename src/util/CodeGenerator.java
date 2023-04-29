@@ -37,22 +37,26 @@ public class CodeGenerator {
     PrintWriter writer = new PrintWriter(fw);
 
     for (Statement statement : statements) {
-      StringBuilder sb = new StringBuilder();
-      String opcode = resolveOperator(statement.getOperator());
-      String operand1 = resolveOperand1(statement.getOperand1(), symbolTable);
-      String operand2 = resolveOperand2(statement.getOperand2(), symbolTable);
-
-      sb.append(opcode);
-      if (operand1 != null) {
-        sb.append(" ").append(operand1);
-      }
-      if (operand2 != null) {
-        sb.append(" ").append(operand2);
-      }
-
-      writer.println(sb.toString());
+      writer.println(resolve(statement, symbolTable));
     }
     writer.close();
+  }
+
+  private String resolve(Statement statement, SymbolTable symbolTable) {
+    StringBuilder sb = new StringBuilder();
+    String opcode = resolveOperator(statement.getOperator());
+    String operand1 = resolveOperand1(statement.getOperand1(), symbolTable);
+    String operand2 = resolveOperand2(statement.getOperand2(), symbolTable);
+
+    sb.append(opcode);
+    if (operand1 != null) {
+      sb.append(" ").append(operand1);
+    }
+    if (operand2 != null) {
+      sb.append(" ").append(operand2);
+    }
+
+    return sb.toString();
   }
 
   private String resolveOperator(String operator) {
