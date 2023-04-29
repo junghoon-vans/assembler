@@ -1,5 +1,7 @@
 package parse;
 
+import java.util.List;
+import parse.tree.Statement;
 import util.Lex;
 import parse.tree.CodeSegment;
 import parse.tree.Node;
@@ -11,10 +13,10 @@ public class Program implements Node {
   private Header header;
   private CodeSegment codeSegment;
 
-  public Program(Lex lex, SymbolTable symbolTable) {
+  public Program(Lex lex, SymbolTable symbolTable, List<Statement> statements) {
     this.lex = lex;
     this.header = new Header(lex, symbolTable);
-    this.codeSegment = new CodeSegment(lex, symbolTable);
+    this.codeSegment = new CodeSegment(lex, symbolTable, statements);
   }
 
   @Override

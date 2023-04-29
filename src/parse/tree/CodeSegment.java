@@ -12,10 +12,10 @@ public class CodeSegment implements Node {
   private List<Statement> statements;
   private SymbolTable symbolTable;
 
-  public CodeSegment(Lex lex, SymbolTable symbolTable) {
+  public CodeSegment(Lex lex, SymbolTable symbolTable, List<Statement> statements) {
     this.lex = lex;
     this.symbolTable = symbolTable;
-    this.statements = new ArrayList<>();
+    this.statements = statements;
   }
 
   @Override
