@@ -15,11 +15,11 @@ public enum Operator {
   ;
 
   public static String hexCode(String operator) {
-    return Integer.toHexString(Operator.valueOf(operator).ordinal());
+    return String.format("%02X", Operator.valueOf(operator).ordinal());
   }
 
   public static String binaryCode(String operator) {
-    return Integer.toBinaryString(Operator.valueOf(operator).ordinal());
+    return String.format("%04d", Operator.valueOf(operator).ordinal());
   }
 }
 

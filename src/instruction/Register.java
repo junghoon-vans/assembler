@@ -8,11 +8,11 @@ public enum Register {
   ;
 
   public static String hexCode(String register) {
-    return Integer.toHexString(Register.valueOf(register).ordinal());
+    return String.format("%02X", Register.valueOf(register).ordinal());
   }
 
   public static String binaryCode(String register) {
-    return Integer.toBinaryString(Register.valueOf(register).ordinal());
+    return String.format("%04d", Register.valueOf(register).ordinal());
   }
 
   public static boolean contains(String register) {

@@ -13,9 +13,6 @@ import parse.symbol.SymbolTable;
 import parse.tree.Statement;
 
 public class CodeGenerator {
-
-  private static final String BINARY_PREFIX = "0b";
-  private static final String HEX_PREFIX = "0x";
   private File file;
 
   public CodeGenerator(String filename) {
@@ -83,16 +80,16 @@ public class CodeGenerator {
 
   private String resolveMode(Mode mode, boolean binaryOutput) {
     if (binaryOutput) {
-      return BINARY_PREFIX + Mode.binaryCode(mode.toString());
+      return Mode.binaryCode(mode.toString());
     }
-    return HEX_PREFIX + Mode.hexCode(mode.toString());
+    return Mode.hexCode(mode.toString());
   }
 
   private String resolveOperator(String operator, boolean binaryOutput) {
     if (binaryOutput) {
-      return BINARY_PREFIX + Operator.binaryCode(operator);
+      return Operator.binaryCode(operator);
     }
-    return HEX_PREFIX + Operator.hexCode(operator);
+    return Operator.hexCode(operator);
   }
 
   private String resolveOperand(String operand, SymbolTable symbolTable, Mode mode, boolean binaryOutput) {
@@ -103,9 +100,9 @@ public class CodeGenerator {
 
     if (mode == Mode.INDIRECT) {
       if (binaryOutput) {
-        return BINARY_PREFIX + Register.binaryCode(operand);
+        return Register.binaryCode(operand);
       }
-      return HEX_PREFIX + Register.hexCode(operand);
+      return Register.hexCode(operand);
     }
 
     if (operand.contains("@")) {
@@ -118,8 +115,8 @@ public class CodeGenerator {
     }
 
     if (binaryOutput) {
-      return BINARY_PREFIX + Integer.toBinaryString(Integer.parseInt(operand));
+      return String.format("%04d", Integer.parseInt(operand));
     }
-    return HEX_PREFIX + Integer.toHexString(Integer.parseInt(operand));
+    return String.format("%02X", Integer.parseInt(operand));
   }
 }
