@@ -29,4 +29,13 @@ public class SymbolTable {
       System.out.println(symbolEntity.getVariableName() + " " + symbolEntity.getValue());
     }
   }
+
+  public boolean contains(String variableName) {
+    for (SymbolEntity symbolEntity : symbolEntities) {
+      if (symbolEntity.getVariableName().equals(variableName)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

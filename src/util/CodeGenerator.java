@@ -1,5 +1,6 @@
 package util;
 
+import instruction.Mode;
 import instruction.Operator;
 import instruction.Register;
 import java.io.File;
@@ -44,11 +45,16 @@ public class CodeGenerator {
 
   private String resolve(Statement statement, SymbolTable symbolTable) {
     StringBuilder sb = new StringBuilder();
-    String opcode = resolveOperator(statement.getOperator());
-    String operand1 = resolveOperand1(statement.getOperand1(), symbolTable);
-    String operand2 = resolveOperand2(statement.getOperand2(), symbolTable);
 
-    sb.append(opcode);
+    Mode operand1Mode = getMode(statement.getOperand1());
+    Mode operand2Mode = getMode(statement.getOperand2());
+
+    String operand1 = resolveOperand(statement.getOperand1(), symbolTable, operand1Mode);
+    String operand2 = resolveOperand(statement.getOperand2(), symbolTable, operand2Mode);
+    String opcode = resolveOperator(statement.getOperator());
+    String mode = resolveMode(operand2Mode);
+
+    sb.append(mode).append(" ").append(opcode);
     if (operand1 != null) {
       sb.append(" ").append(operand1);
     }
@@ -59,35 +65,42 @@ public class CodeGenerator {
     return sb.toString();
   }
 
+  private Mode getMode(String operand) {
+    if (operand == null) {
+      return Mode.DIRECT;
+    }
+    if (Register.contains(operand)) {
+      return Mode.INDIRECT;
+    }
+    return Mode.DIRECT;
+  }
+
+  private String resolveMode(Mode mode) {
+    return HEX_PREFIX + Mode.hexCode(mode.toString());
+  }
+
   private String resolveOperator(String operator) {
     return HEX_PREFIX + Operator.hexCode(operator);
   }
 
-  private String resolveOperand1(String operand, SymbolTable symbolTable) {
+  private String resolveOperand(String operand, SymbolTable symbolTable, Mode mode) {
+
     if (operand == null) {
       return null;
     }
 
-    SymbolEntity symbolEntity = symbolTable.get(operand);
-    if (symbolEntity != null) {
-      return HEX_PREFIX + Integer.toHexString(symbolEntity.getValue());
-    }
-    return HEX_PREFIX + Register.hexCode(operand);
-  }
-
-  private String resolveOperand2(String operand, SymbolTable symbolTable) {
-    if (operand == null) {
-      return null;
-    }
-
-    if (operand.contains("@")) {
-      return HEX_PREFIX + symbolTable.get(operand.substring(1)).getValue();
-    }
-
-    if (Register.contains(operand)) {
+    if (mode == Mode.INDIRECT) {
       return HEX_PREFIX + Register.hexCode(operand);
     }
 
+    if (operand.contains("@")) {
+      operand = operand.substring(1);
+    }
+
+    if (symbolTable.contains(operand)) {
+      SymbolEntity symbolEntity = symbolTable.get(operand);
+      return HEX_PREFIX + Integer.toHexString(symbolEntity.getValue());
+    }
     return HEX_PREFIX + Integer.toHexString(Integer.parseInt(operand));
   }
 }
