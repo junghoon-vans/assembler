@@ -29,7 +29,7 @@ public class CodeGenerator {
   }
 
   public void generate(SymbolTable symbolTable, List<Statement> statements) {
-    FileWriter fw = null;
+    FileWriter fw;
     try {
       fw = new FileWriter(file);
     } catch (IOException e) {
@@ -38,7 +38,12 @@ public class CodeGenerator {
     PrintWriter writer = new PrintWriter(fw);
 
     for (Statement statement : statements) {
-      writer.println(resolve(statement, symbolTable));
+      try {
+        writer.println(resolve(statement, symbolTable));
+      } catch (IllegalArgumentException e) {
+        // alert not defined symbol
+        throw new RuntimeException(e);
+      }
     }
     writer.close();
   }
@@ -99,7 +104,7 @@ public class CodeGenerator {
 
     if (symbolTable.contains(operand)) {
       SymbolEntity symbolEntity = symbolTable.get(operand);
-      return HEX_PREFIX + Integer.toHexString(symbolEntity.getValue());
+      operand = String.valueOf(symbolEntity.getValue());
     }
     return HEX_PREFIX + Integer.toHexString(Integer.parseInt(operand));
   }
