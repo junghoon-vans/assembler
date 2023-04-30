@@ -33,6 +33,7 @@ public class Main {
     }
 
     private static String selectOption() {
+        System.out.println("[MENU]");
         System.out.println("1 - Print tokens of lexical analyzer");
         System.out.println("2 - Print symbol table and parse tree");
         System.out.println("3 - Generate code");
@@ -57,6 +58,7 @@ public class Main {
             codeGenerator.generate(symbolTable, statements, isBinaryOutput());
             System.out.println("Code generated successfully!");
         }
+        System.out.println();
     }
 
     private static boolean isBinaryOutput() {
