@@ -45,7 +45,6 @@ public class Main {
 
     private static void execute(String option) {
         System.out.println();
-
         if (option.equals("1")) {
             lex.printTokens();
         }
@@ -55,9 +54,15 @@ public class Main {
         }
         if (option.equals("3")) {
             CodeGenerator codeGenerator = new CodeGenerator("resources/program.exe");
-            codeGenerator.generate(symbolTable, statements);
+            codeGenerator.generate(symbolTable, statements, isBinaryOutput());
             System.out.println("Code generated successfully!");
         }
+    }
+
+    private static boolean isBinaryOutput() {
+        System.out.print("Binary output? (y/n): ");
+        String option = sc.nextLine();
+        return option.equals("y");
     }
 
     private static void exit() {

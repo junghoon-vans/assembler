@@ -14,6 +14,7 @@ import parse.tree.Statement;
 
 public class CodeGenerator {
 
+  private static final String BINARY_PREFIX = "0b";
   private static final String HEX_PREFIX = "0x";
   private File file;
 
@@ -28,7 +29,7 @@ public class CodeGenerator {
     }
   }
 
-  public void generate(SymbolTable symbolTable, List<Statement> statements) {
+  public void generate(SymbolTable symbolTable, List<Statement> statements, boolean binaryOutput) {
     FileWriter fw;
     try {
       fw = new FileWriter(file);
@@ -39,7 +40,7 @@ public class CodeGenerator {
 
     for (Statement statement : statements) {
       try {
-        writer.println(resolve(statement, symbolTable));
+        writer.println(resolve(statement, symbolTable, binaryOutput));
       } catch (IllegalArgumentException e) {
         // alert not defined symbol
         throw new RuntimeException(e);
@@ -48,16 +49,16 @@ public class CodeGenerator {
     writer.close();
   }
 
-  private String resolve(Statement statement, SymbolTable symbolTable) {
+  private String resolve(Statement statement, SymbolTable symbolTable, boolean binaryOutput) {
     StringBuilder sb = new StringBuilder();
 
     Mode operand1Mode = getMode(statement.getOperand1());
     Mode operand2Mode = getMode(statement.getOperand2());
 
-    String operand1 = resolveOperand(statement.getOperand1(), symbolTable, operand1Mode);
-    String operand2 = resolveOperand(statement.getOperand2(), symbolTable, operand2Mode);
-    String opcode = resolveOperator(statement.getOperator());
-    String mode = resolveMode(operand2Mode);
+    String operand1 = resolveOperand(statement.getOperand1(), symbolTable, operand1Mode, binaryOutput);
+    String operand2 = resolveOperand(statement.getOperand2(), symbolTable, operand2Mode, binaryOutput);
+    String opcode = resolveOperator(statement.getOperator(), binaryOutput);
+    String mode = resolveMode(operand2Mode, binaryOutput);
 
     sb.append(mode).append(" ").append(opcode);
     if (operand1 != null) {
@@ -80,21 +81,30 @@ public class CodeGenerator {
     return Mode.DIRECT;
   }
 
-  private String resolveMode(Mode mode) {
+  private String resolveMode(Mode mode, boolean binaryOutput) {
+    if (binaryOutput) {
+      return BINARY_PREFIX + Mode.binaryCode(mode.toString());
+    }
     return HEX_PREFIX + Mode.hexCode(mode.toString());
   }
 
-  private String resolveOperator(String operator) {
+  private String resolveOperator(String operator, boolean binaryOutput) {
+    if (binaryOutput) {
+      return BINARY_PREFIX + Operator.binaryCode(operator);
+    }
     return HEX_PREFIX + Operator.hexCode(operator);
   }
 
-  private String resolveOperand(String operand, SymbolTable symbolTable, Mode mode) {
+  private String resolveOperand(String operand, SymbolTable symbolTable, Mode mode, boolean binaryOutput) {
 
     if (operand == null) {
       return null;
     }
 
     if (mode == Mode.INDIRECT) {
+      if (binaryOutput) {
+        return BINARY_PREFIX + Register.binaryCode(operand);
+      }
       return HEX_PREFIX + Register.hexCode(operand);
     }
 
@@ -105,6 +115,10 @@ public class CodeGenerator {
     if (symbolTable.contains(operand)) {
       SymbolEntity symbolEntity = symbolTable.get(operand);
       operand = String.valueOf(symbolEntity.getValue());
+    }
+
+    if (binaryOutput) {
+      return BINARY_PREFIX + Integer.toBinaryString(Integer.parseInt(operand));
     }
     return HEX_PREFIX + Integer.toHexString(Integer.parseInt(operand));
   }

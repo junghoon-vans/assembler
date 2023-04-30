@@ -17,5 +17,9 @@ public enum Operator {
   public static String hexCode(String operator) {
     return Integer.toHexString(Operator.valueOf(operator).ordinal());
   }
+
+  public static String binaryCode(String operator) {
+    return Integer.toBinaryString(Operator.valueOf(operator).ordinal());
+  }
 }
 
