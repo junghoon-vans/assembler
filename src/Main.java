@@ -37,6 +37,7 @@ public class Main {
         System.out.println("1 - Print tokens of lexical analyzer");
         System.out.println("2 - Print symbol table and parse tree");
         System.out.println("3 - Generate code");
+        System.out.println("Other - Exit");
         System.out.print("Select an option: ");
 
         String option = sc.nextLine();
