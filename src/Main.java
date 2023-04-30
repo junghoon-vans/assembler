@@ -13,18 +13,23 @@ public class Main {
     static SymbolTable symbolTable;
     static List<Statement> statements;
     static Parser parser;
+    static Scanner sc;
 
     public static void main(String[] args) {
         lex = new Lex("resources/program.asm");
         symbolTable = new SymbolTable();
         statements = new ArrayList<>();
+        sc = new Scanner(System.in);
 
         parser = new Parser(lex, symbolTable, statements);
         parser.parse();
-        lex.finalize();
 
         String option = selectOption();
-        execute(option);
+        while (option.equals("1") || option.equals("2") || option.equals("3")) {
+            execute(option);
+            option = selectOption();
+        }
+        exit();
     }
 
     private static String selectOption() {
@@ -33,9 +38,7 @@ public class Main {
         System.out.println("3 - Generate code");
         System.out.print("Select an option: ");
 
-        Scanner sc = new Scanner(System.in);
         String option = sc.nextLine();
-        sc.close();
 
         return option;
     }
@@ -55,5 +58,12 @@ public class Main {
             codeGenerator.generate(symbolTable, statements);
             System.out.println("Code generated successfully!");
         }
+    }
+
+    private static void exit() {
+        System.out.println("Program is terminated");
+        lex.finalize();
+        sc.close();
+        System.exit(0);
     }
 }
