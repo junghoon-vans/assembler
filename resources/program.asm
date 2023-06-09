@@ -1,36 +1,61 @@
-.header
-count 0
-sum 4
-i 8
+.data
+  count 0
+  i 0
+  kor 70
+  eng 60
 
 .code
-MOV MAR @count
-MOV MBR 10
-STA
-MOV MAR @sum
-MOV MBR 0
-STA
-MOV MAR @i
-MOV MBR 0
-STA
+  loada @input
+  store @count
 
-start:
-MOV MAR @i
-LDA
-MOV AC1 MBR
-MOV MAR @count
-LDA
-MOV AC2 MBR
-SUB AC1 AC2
-GTJ end
-MOV MAR @sum
-LDA
-MOV AC1 MBR
-MOV AC2 1
-ADD AC1 AC2
-MOV MBR AC1
-MOV MAR @sum
-STA
-JMP start
-end: HALT
+  for_loop:
+    loada @i
+    sub @count
+    bz @end_for
+
+    // student.average();
+    loada [sp]
+    push #16
+    store [sp]
+    loadc #24
+    store [sp-4]
+    jump @average
+
+    pop #16
+
+    // i = i + 1
+    loada @i
+    addc #1
+    store @i
+
+    jump @for_loop
+  end_for:
+    halt 0
+
+  sum:
+    loada @kor
+    adda @eng
+    store [sp]
+    jump [sp-8]
+
+  average:
+    // call sum
+    loada [sp]
+    push #12
+    store [sp-4] // dynamic link
+    loadc #51
+    store [sp-8] // return address
+    jump @sum
+
+    // average의 지역변수 sum에 저장
+    loada [sp]
+    store [sp-20]
+    pop #12
+
+    // average = sum / 2
+    loada [sp-8]
+    div #2
+    store [sp-12]
+    out [sp-12]
+    jump [sp-4]
 .end
