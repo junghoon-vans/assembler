@@ -1,15 +1,15 @@
-package parse;
+package parse.tree;
 
 import util.Lex;
 import parse.symbol.SymbolEntity;
 import parse.symbol.SymbolTable;
 
-public class Header {
+public class DataSegment {
 
   private Lex lex;
   private SymbolTable symbolTable;
 
-  public Header(Lex lex, SymbolTable symbolTable) {
+  public DataSegment(Lex lex, SymbolTable symbolTable) {
     this.lex = lex;
     this.symbolTable = symbolTable;
   }
