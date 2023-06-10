@@ -1,7 +1,6 @@
 package parse.tree;
 
 import util.Lex;
-import java.util.Arrays;
 public class Statement implements Node {
 
   private Lex lex;
@@ -11,40 +10,28 @@ public class Statement implements Node {
   }
 
   private String operator;
-  private String[] operand;
+  private String operand;
 
   @Override
   public String parse() {
     String[] tokens = lex.getTokens();
 
     operator = tokens[0];
-    operand = Arrays.copyOfRange(tokens, 1, tokens.length);
+    operand = tokens.length > 1 ? tokens[1] : null;
 
     return operator;
   }
 
   @Override
   public void print() {
-    System.out.println(operator + " " + String.join(" ", operand));
+    System.out.println(operator + " " + operand);
   }
 
   public String getOperator() {
     return operator;
   }
 
-  public String getOperand1() {
-    if (operand.length >= 1) {
-      return operand[0];
-    } else {
-      return null;
-    }
-  }
-
-  public String getOperand2() {
-    if (operand.length >= 2) {
-      return operand[1];
-    } else {
-      return null;
-    }
+  public String getOperand() {
+    return operand;
   }
 }
