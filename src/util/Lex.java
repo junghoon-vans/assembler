@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Lex {
   private Scanner scanner;
   private List<String> tokens;
@@ -22,7 +21,7 @@ public class Lex {
 
   public String getToken() {
     try {
-      String token = scanner.next();
+      String token = scanner.next().trim();
       tokens.add(token);
       return token;
     } catch (Exception e) {
@@ -32,7 +31,7 @@ public class Lex {
 
   public String[] getTokens() {
     try {
-      String line = scanner.nextLine();
+      String line = scanner.nextLine().trim();
       while (line.isEmpty() || line.startsWith("//")) {
         line = scanner.nextLine();
       }
