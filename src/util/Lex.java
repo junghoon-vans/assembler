@@ -50,9 +50,7 @@ public class Lex {
 
   public void printTokens() {
     System.out.println("[Tokens]");
-    for (String token : tokens) {
-      System.out.println(token);
-    }
+    System.out.println(tokens);
   }
 
   public void finalize() {
