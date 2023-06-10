@@ -52,6 +52,7 @@ public class Main {
         }
         if (option.equals("2")) {
             symbolTable.print();
+            System.out.println();
             parser.print();
         }
         if (option.equals("3")) {
