@@ -32,8 +32,9 @@ public class Lex {
   public String[] getTokens() {
     try {
       String line = scanner.nextLine().trim();
-      while (line.isEmpty() || line.startsWith("//")) {
-        line = scanner.nextLine();
+
+      while (line.isEmpty()) {
+        line = scanner.nextLine().trim();
       }
 
       String[] tokens = line.split(" ");
