@@ -16,12 +16,16 @@ public enum Operator {
   OUT,
   ;
 
-  public static String hexCode(String operator) {
-    return String.format("%02X", Operator.valueOf(operator.toUpperCase()).ordinal());
-  }
-
   public static String binaryCode(String operator) {
-    return String.format("%04d", Operator.valueOf(operator.toUpperCase()).ordinal());
+    int index = Operator.valueOf(operator.toUpperCase()).ordinal();
+    StringBuilder binaryString = new StringBuilder();
+
+    for (int i = 3; i >= 0; i--) {
+      int bit = (index >> i) & 1;
+      binaryString.append(bit);
+    }
+
+    return binaryString.toString();
   }
 }
 
