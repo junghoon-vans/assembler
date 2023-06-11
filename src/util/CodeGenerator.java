@@ -16,8 +16,8 @@ import parse.tree.Statement;
 public class CodeGenerator {
 
   private static int CODE_SEGMENT = 0;
-  private static int DATA_SEGMENT = 2048;
-  private static int STACK_SEGMENT = 4096;
+  private static int DATA_SEGMENT = 1024;
+  private static int STACK_SEGMENT = 3072;
 
   private File file;
 
@@ -99,7 +99,6 @@ public class CodeGenerator {
     Matcher matcher = pattern.matcher(operand);
     if (matcher.find()) {
       int value = Integer.parseInt(matcher.group(1));
-      System.out.println(value);
       return Converter.decimalToBinary(String.valueOf(STACK_SEGMENT+value), 12);
     }
 
