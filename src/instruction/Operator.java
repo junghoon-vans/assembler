@@ -20,7 +20,7 @@ public enum Operator {
 
   public static String binaryCode(String operator) {
     int index = Operator.valueOf(operator.toUpperCase()).ordinal();
-    return Converter.decimalToBinary(String.valueOf(index));
+    return Converter.decimalToBinary(String.valueOf(index), 4);
   }
 }
 

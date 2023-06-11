@@ -2,10 +2,10 @@ package util;
 
 public class Converter {
 
-  public static String decimalToBinary(String Decimal) {
+  public static String decimalToBinary(String Decimal, int length) {
     int decimal = Integer.parseInt(Decimal);
     StringBuilder binary = new StringBuilder();
-    for (int i = 3; i >= 0; i--) {
+    for (int i = length-1; i >= 0; i--) {
       int bit = (decimal >> i) & 1;
       binary.append(bit);
     }
