@@ -11,14 +11,14 @@
   for_loop:
     loada @i
     sub @count
-    bz @end_for
+    bz end_for
 
     loada [sp]
     push #16
     store [sp]
     loadc #12
     store [sp-4]
-    jump @average
+    jump average
 
     pop #16
 
@@ -26,9 +26,9 @@
     addc #1
     store @i
 
-    jump @for_loop
+    jump for_loop
   end_for:
-    halt 0
+    halt #0
 
   sum:
     loada @kor
@@ -42,7 +42,7 @@
     store [sp-4]
     loadc #28
     store [sp-8]
-    jump @sum
+    jump sum
 
     loada [sp]
     store [sp-20]

@@ -14,9 +14,9 @@ public class SymbolTable {
     this.symbolEntities.add(symbolEntity);
   }
 
-  public SymbolEntity get(String variableName) {
+  public SymbolEntity get(String variableName, SymbolType type) {
     for (SymbolEntity symbolEntity : symbolEntities) {
-      if (symbolEntity.getVariableName().equals(variableName)) {
+      if (symbolEntity.getVariableName().equals(variableName) && symbolEntity.getType() == type) {
         return symbolEntity;
       }
     }
@@ -30,9 +30,9 @@ public class SymbolTable {
     }
   }
 
-  public boolean contains(String variableName) {
+  public boolean contains(String variableName, SymbolType type) {
     for (SymbolEntity symbolEntity : symbolEntities) {
-      if (symbolEntity.getVariableName().equals(variableName)) {
+      if (symbolEntity.getVariableName().equals(variableName) && symbolEntity.getType() == type) {
         return true;
       }
     }

@@ -6,11 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import parse.symbol.SymbolEntity;
 import parse.symbol.SymbolTable;
+import parse.symbol.SymbolType;
 import parse.tree.Statement;
 
 public class CodeGenerator {
+
+  private static int CODE_SEGMENT = 0;
+  private static int DATA_SEGMENT = 2048;
+  private static int STACK_SEGMENT = 4096;
+
   private File file;
 
   public CodeGenerator(String filename) {
@@ -45,44 +53,56 @@ public class CodeGenerator {
   }
 
   private String resolve(Statement statement, SymbolTable symbolTable, boolean binaryOutput) {
-    StringBuilder sb = new StringBuilder();
+    String operand = resolveOperand(statement.getOperand(), symbolTable);
+    String opcode = resolveOperator(statement.getOperator());
 
-    String operand = resolveOperand(statement.getOperand(), symbolTable, binaryOutput);
-    String opcode = resolveOperator(statement.getOperator(), binaryOutput);
-
-    sb.append(opcode);
-    if (operand != null) {
-      sb.append(" ").append(operand);
-    }
-
-    return sb.toString();
+    String binary = opcode + operand;
+    return binaryOutput ? binary : Converter.binaryToHex(binary);
   }
 
-  private String resolveOperator(String operator, boolean binaryOutput) {
-    if (binaryOutput) {
-      return Operator.binaryCode(operator);
-    }
-    return Operator.hexCode(operator);
+  private String resolveOperator(String operator) {
+    return Operator.binaryCode(operator);
   }
 
-  private String resolveOperand(String operand, SymbolTable symbolTable, boolean binaryOutput) {
+  private String resolveOperand(String operand, SymbolTable symbolTable) {
 
-    if (operand == null) {
-      return null;
+    // keyboard input
+    if (operand.equals("@input")) {
+      int operandValue = 2047;
+      return Converter.decimalToBinary(String.valueOf(operandValue), 12);
     }
 
+    // constant
+    if (operand.contains("#")) {
+      return Converter.decimalToBinary(operand.replace("#", ""), 12);
+    }
+
+    // code segment
+    if (symbolTable.contains(operand, SymbolType.LABEL)) {
+      SymbolEntity symbolEntity = symbolTable.get(operand, SymbolType.LABEL);
+      return Converter.decimalToBinary(String.valueOf(CODE_SEGMENT + symbolEntity.getValue()), 12);
+    }
+
+    // data segment
     if (operand.contains("@")) {
-      operand = operand.substring(1);
+      operand = operand.replace("@", "");
+      SymbolEntity symbolEntity = symbolTable.get(operand, SymbolType.DATA);
+      return Converter.decimalToBinary(String.valueOf(DATA_SEGMENT + symbolEntity.getValue()), 12);
     }
 
-    if (symbolTable.contains(operand)) {
-      SymbolEntity symbolEntity = symbolTable.get(operand);
-      operand = String.valueOf(symbolEntity.getValue());
+    // stack segment
+    if (operand.equals("[sp]")) {
+      return Converter.decimalToBinary(String.valueOf(STACK_SEGMENT), 12);
     }
 
-    if (binaryOutput) {
-      return String.format("%04d", Integer.parseInt(operand));
+    Pattern pattern = Pattern.compile("\\[sp-(\\d+)\\]");
+    Matcher matcher = pattern.matcher(operand);
+    if (matcher.find()) {
+      int value = Integer.parseInt(matcher.group(1));
+      System.out.println(value);
+      return Converter.decimalToBinary(String.valueOf(STACK_SEGMENT+value), 12);
     }
-    return String.format("%02X", Integer.parseInt(operand));
+
+    return Converter.decimalToBinary(operand, 12);
   }
 }

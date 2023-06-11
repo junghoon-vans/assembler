@@ -19,6 +19,10 @@ public class SymbolEntity {
     return this.value;
   }
 
+  public SymbolType getType() {
+    return this.type;
+  }
+
   @Override
   public String toString() {
     return this.variableName + " " + this.type + " " + this.value;
