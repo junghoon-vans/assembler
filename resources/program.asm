@@ -16,7 +16,7 @@
     loada [sp]
     push #16
     store [sp]
-    loadc #13
+    loadc #12
     store [sp-4]
     jump @average
 
@@ -40,7 +40,7 @@
     loada [sp]
     push #12
     store [sp-4]
-    loadc #32
+    loadc #28
     store [sp-8]
     jump @sum
 
