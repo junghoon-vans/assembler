@@ -26,7 +26,7 @@ public class SymbolTable {
   public void print() {
     System.out.println("[Symbol Table]");
     for (SymbolEntity symbolEntity : symbolEntities) {
-      System.out.println(symbolEntity.getVariableName() + " " + symbolEntity.getValue());
+      System.out.println(symbolEntity);
     }
   }
 

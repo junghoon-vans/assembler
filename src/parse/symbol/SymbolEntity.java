@@ -2,10 +2,12 @@ package parse.symbol;
 
 public class SymbolEntity {
   private String variableName;
+  private SymbolType type;
   private int value;
 
-  public SymbolEntity(String variableName, int value) {
+  public SymbolEntity(String variableName, SymbolType type, int value) {
     this.variableName = variableName;
+    this.type = type;
     this.value = value;
   }
 
@@ -15,5 +17,10 @@ public class SymbolEntity {
 
   public int getValue() {
     return this.value;
+  }
+
+  @Override
+  public String toString() {
+    return this.variableName + " " + this.type + " " + this.value;
   }
 }

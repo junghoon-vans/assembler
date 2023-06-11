@@ -1,5 +1,6 @@
 package parse.tree;
 
+import parse.symbol.SymbolType;
 import util.Lex;
 import parse.symbol.SymbolEntity;
 import parse.symbol.SymbolTable;
@@ -18,7 +19,7 @@ public class DataSegment {
     String token = lex.getToken();
 
     while (!token.equals(".code")) {
-      SymbolEntity symbolEntity = new SymbolEntity(token, Integer.parseInt(lex.getToken()));
+      SymbolEntity symbolEntity = new SymbolEntity(token, SymbolType.DATA, Integer.parseInt(lex.getToken()));
       symbolTable.add(symbolEntity);
       token = lex.getToken();
     }

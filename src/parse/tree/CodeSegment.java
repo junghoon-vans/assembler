@@ -1,5 +1,6 @@
 package parse.tree;
 
+import parse.symbol.SymbolType;
 import util.Lex;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class CodeSegment implements Node {
       if (statement.getOperator().contains(":")) {
         SymbolEntity symbolEntity = new SymbolEntity(
             statement.getOperator().replace(":", ""),
+            SymbolType.LABEL,
             this.statements.size() + 1
         );
         this.symbolTable.add(symbolEntity);
