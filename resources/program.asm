@@ -1,10 +1,15 @@
 .data
   count 0
-  i 0
-  kor 70
-  eng 60
+  i 4
+  kor 8
+  eng 12
 
 .code
+  loadc #70
+  store @kor
+  loadc #60
+  store @eng
+
   loada @input
   store @count
 
@@ -16,7 +21,7 @@
     loada [sp]
     push #16
     store [sp]
-    loadc #12
+    loadc #15
     store [sp-4]
     jump average
 
@@ -40,7 +45,7 @@
     loada [sp]
     push #12
     store [sp-4]
-    loadc #28
+    loadc #31
     store [sp-8]
     jump sum
 
