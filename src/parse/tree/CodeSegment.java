@@ -29,7 +29,7 @@ public class CodeSegment implements Node {
         SymbolEntity symbolEntity = new SymbolEntity(
             statement.getOperator().replace(":", ""),
             SymbolType.LABEL,
-            this.statements.size() + 1
+            this.statements.size()
         );
         this.symbolTable.add(symbolEntity);
       } else {
@@ -45,8 +45,11 @@ public class CodeSegment implements Node {
 
   @Override
   public void print() {
+    int index = 0;
     for (Statement statement : this.statements) {
+      System.out.print(index + " ");
       statement.print();
+      index++;
     }
   }
 }
