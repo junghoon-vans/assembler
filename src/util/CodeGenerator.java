@@ -66,8 +66,7 @@ public class CodeGenerator {
 
   private String resolveOperand(String operand, SymbolTable symbolTable) {
 
-    // keyboard input
-    if (operand.equals("@input")) {
+    if (operand.equals("@keyboard")) {
       int operandValue = 2047;
       return Converter.decimalToBinary(String.valueOf(operandValue), 12);
     }

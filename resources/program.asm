@@ -10,7 +10,7 @@
   loadc #60
   store @eng
 
-  loada @input
+  loada @keyboard
   store @count
 
   for_loop:
